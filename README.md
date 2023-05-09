@@ -17,7 +17,8 @@ The site has been hosted using the flask framework
 
 To view the prototype
 
-```cd WebSide/Client/House Price/
+```
+cd WebSide/Client/House Price/
 npm run dev
 ```
 
