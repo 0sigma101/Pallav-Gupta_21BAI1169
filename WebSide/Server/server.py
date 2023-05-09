@@ -1,31 +1,27 @@
 from flask import Flask, request, jsonify
-import util
+import joblib
+
 app = Flask(__name__)
 
-@app.route('/get_location_names')
-def get_location_names():
-    response = jsonify({
-        'locations': util.get_location_names()
-    })
-    response.headers.add('Access-Control-Allow-Origin', '*')
+model = joblib.load(r'C:\Users\Admin\Desktop\MIC\Pallav-Gupta_21BAI1169\WebSide\Server\Artifact\home_prices_model.pickle')
 
-    return response
+@app.route('/')
+def index():
+    return 'Hello'
 
-@app.route('/predict_home_price', methods = ['GET','POST'])
-def predict_home_price():
-    total_sqft = float(request.form['total_sqft'])
-    location = request.form['location']
-    BHK = int(request.form['BHK'])
-    bath = int(request.form['bath'])
+@app.route('/predict', methods = ['POST'])
+def predict():
+    data = request.get_json()
+    
+    #preprocessing data left
+    
+    prediction = model.predict(data)
 
     response = jsonify({
-        'estimated_price': util.get_estimated_price(location, total_sqft, BHK, bath)
+        'estimated_price': prediction
     })
-    response.headers.add('Access-Control-Allow-Origin', '*')
 
     return response
 
 if __name__ == "__main__":
-    print("Starting Python Flask Server for Home Price Prediction...")
-    util.load_saved_artifacts()
-    app.run()
+    app.run(debug=True)
