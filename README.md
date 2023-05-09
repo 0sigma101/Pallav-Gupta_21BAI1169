@@ -15,4 +15,10 @@ Install the dependencies
 
 The site has been hosted using the flask framework
 
-However the site is still under development for the linking part
+To view the prototype
+
+```cd WebSide/Client/House Price/
+npm run dev
+```
+
+However the site is still under development for the linking part and there are still somechanges to be made in paths
